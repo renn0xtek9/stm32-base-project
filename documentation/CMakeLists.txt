@@ -3,7 +3,7 @@ INCLUDE (CreateLatexDocument)
 SET (requirements_document "requirements_document")
 SET (REQUIREMENTS_DOCUMENT_MAIN_TEX ${requirements_document}.tex)
 SET (REQUIREMENTS_DOCUMENTS_RESOURCES_FILES
-     ${CMAKE_CURRENT_SOURCE_DIR}/resources/project_or_company_logo.png)
+     ${CMAKE_CURRENT_SOURCE_DIR}/resources/project_logo.png)
 SET (REQUIREMENTS_DOCUMENTS_BIBLIOGRAPHY
      ${CMAKE_CURRENT_SOURCE_DIR}/library.bib)
 

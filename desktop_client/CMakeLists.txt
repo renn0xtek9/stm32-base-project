@@ -1,4 +1,4 @@
-SET (EXENAME testcpp)
+SET (EXENAME desktop_client)
 PROJECT (${EXENAME} LANGUAGES CXX)
 SET (CMAKE_CXX_STANDARD 14)
 SET (CMAKE_CXX_EXTENSIONS OFF)
@@ -16,7 +16,7 @@ INCLUDE (Packaging)
 
 ADD_CUSTOM_TARGET (
   disassemble
-  COMMAND /usr/bin/objdump -S $<TARGET_FILE:testcpp> >
+  COMMAND /usr/bin/objdump -S $<TARGET_FILE:desktop_client> >
           ${CMAKE_BINARY_DIR}/${EXENAME}.dump
   COMMENT "Disassemble ${EXENAME}"
   DEPENDS ${EXENAME})
