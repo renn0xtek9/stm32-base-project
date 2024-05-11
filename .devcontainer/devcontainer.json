@@ -1,0 +1,37 @@
+{
+  "name": "Ubuntu 22.04 Dev Container",
+  "runArgs": [
+    "--network=host",
+  ],
+  "build": {
+    "dockerfile": "Dockerfile",
+    "options": [
+      "--network=host"
+    ]
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cmake-tools",
+        "github.vscode-pull-request-github",
+        "github.vscode-github-actions",
+        "github.copilot",
+        "github.copilot-chat",
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode.cpptools-themes",
+        "hbenl.vscode-test-explorer",
+        "malcolmmielle.semantic-highlighting",
+        "derivitec-ltd.cmake-test-adapter"
+      ]
+    }
+  },
+  "extensions":,
+  "postCreateCommand": "sudo chown vscode:vscode /workspace && pre-commit install",
+  "appPort": [],
+  "remoteUser": "vscode",
+  "mounts": [],
+  "containerEnv": {},
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "workspaceFolder": "/workspace",
+}

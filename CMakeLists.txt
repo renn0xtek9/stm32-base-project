@@ -1,0 +1,15 @@
+CMAKE_MINIMUM_REQUIRED (VERSION 3.0)
+PROJECT (cpp-quality-project VERSION 0.0.1)
+ENABLE_TESTING ()
+
+LIST (APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/)
+
+INCLUDE (${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+CONAN_BASIC_SETUP (PROFILE ${CMAKE_SOURCE_DIR}/conan_profiles/linux-x86)
+
+INCLUDE (GenerateGitHashAtConfigTime)
+INCLUDE (GenerateGitHashAtBuildTime)
+
+ADD_SUBDIRECTORY (project)
+ADD_SUBDIRECTORY (test)
+ADD_SUBDIRECTORY (documentation)
