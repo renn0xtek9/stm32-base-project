@@ -35,7 +35,7 @@ ADD_CUSTOM_TARGET (
 
 ADD_TEST (
   NAME code_coverage
-  COMMAND gcovr -r .. --fail-under-line 1.0 --html --html-details -o index.html
+  COMMAND gcovr -r .. --fail-under-line 100 --html --html-details -o index.html
   WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 SET_TESTS_PROPERTIES (code_coverage PROPERTIES FIXTURES_CLEANUP unit_tests)
 
