@@ -1,7 +1,7 @@
 ENABLE_TESTING ()
-SET (LIBNAME probe)
-SET (LIBSRC src/probe.cpp)
-SET (LIBHDRS include/probe.h)
+SET (LIBNAME device_handler)
+SET (LIBSRC src/device_handler.cpp)
+SET (LIBHDRS include/device_handler.h)
 
 ADD_LIBRARY (${LIBNAME} SHARED ${LIBSRC})
 

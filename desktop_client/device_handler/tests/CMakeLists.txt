@@ -9,7 +9,8 @@ SET (CMAKE_EXE_LINKER_FLAGS
 FIND_PACKAGE (GTest REQUIRED)
 INCLUDE_DIRECTORIES (${GTEST_INCLUDE_DIRS})
 ADD_EXECUTABLE (probe_unittest unit_test.cpp)
-TARGET_LINK_LIBRARIES (probe_unittest probe ${GTEST_BOTH_LIBRARIES} --coverage)
+TARGET_LINK_LIBRARIES (probe_unittest device_handler ${GTEST_BOTH_LIBRARIES}
+                       --coverage)
 ADD_TEST (NAME probe_unit COMMAND probe_unittest)
 SET_TESTS_PROPERTIES (probe_unit PROPERTIES FIXTURES_REQUIRED unit_tests)
 SET (PROBE_BENCHMARKDIR ${CMAKE_CURRENT_BINARY_DIR})
