@@ -24,6 +24,17 @@
 \usepackage{algorithmic}
 \usepackage{rotating}
 
+\include{font.tex}
+
+\include{newcommand.tex}
+
+\include{acronym_glossary.tex}
+
+\include{parameters.tex}
+
+\include{title_format.tex}
+
+
 \title{Requirements}
 \author{Maxime Haselbauer}
 \addbibresource{./library.bib} %define so to work with mendeley',
@@ -43,6 +54,9 @@ Set of requirments for a simple STM32 hello world project
 
 \nomenclature{$a$}{The variable a}
 
+\section{Use cases}
+\include{use_cases.tex}
+
 \section{The first section}
 \newacronym[longplural={First Acronyms}]{FAlabel}{FA}{First Acronym}
 This is how to use the \gls{FAlabel}. And now making a second use of \gls{FAlabel}.
@@ -50,7 +64,7 @@ This is how to use the \gls{FAlabel}. And now making a second use of \gls{FAlabe
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.75 \textwidth]{resources/project_logo.png}
+	\includegraphics[width=0.75 \textwidth]{../resources/project_logo.png}
 	\caption{caption}
 	\label{reference}
 \end{figure}
