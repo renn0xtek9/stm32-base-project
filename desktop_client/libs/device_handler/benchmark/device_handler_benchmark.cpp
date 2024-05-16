@@ -1,7 +1,7 @@
 /*! \file device_handler_benchmark.cpp
  * \brief Benchmark runtime of probe library
  */
-#include <device_handler.h>
+#include <device_handler/device_handler.h>
 
 #include <chrono>
 #include <iostream>
