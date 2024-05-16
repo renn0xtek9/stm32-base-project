@@ -1,9 +1,11 @@
 ENABLE_TESTING ()
 
-# SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -pthread")
-SET (GCC_COVERAGE_COMPILE_FLAGS
-     "-g -O3 -coverage -fprofile-arcs -ftest-coverage")
-SET (GCC_COVERAGE_LINK_FLAGS "-coverage -lgcov")
+IF (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+  ADD_DEFINITIONS (-DDEBUG)
+  SET (GCC_COVERAGE_COMPILE_FLAGS
+       "-g -O0 -coverage -fprofile-arcs -ftest-coverage")
+  SET (GCC_COVERAGE_LINK_FLAGS "-coverage -lgcov")
+ENDIF ()
 
 SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 SET (CMAKE_EXE_LINKER_FLAGS
@@ -27,4 +29,6 @@ INSTALL (
   LIBRARY DESTINATION lib/${LIBNAME} COMPONENT Libraries)
 
 ADD_SUBDIRECTORY (tests)
-ADD_SUBDIRECTORY (benchmark)
+IF (${CMAKE_BUILD_TYPE} STREQUAL "Release")
+  ADD_SUBDIRECTORY (benchmark)
+ENDIF ()
