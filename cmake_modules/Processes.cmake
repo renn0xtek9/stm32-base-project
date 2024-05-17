@@ -9,11 +9,9 @@ ENDIF ()
 
 IF (${CMAKE_BUILD_TYPE} STREQUAL "Release")
 
-  ADD_CUSTOM_TARGET (
-    benchmark
-    COMMENT "Benchmark target"
-    COMMAND $<TARGET_FILE:device_handler_benchmark> >
-            ${CMAKE_SOURCE_DIR}/benchmark_report.txt)
+  # ADD_CUSTOM_TARGET ( benchmark COMMENT "Benchmark target" COMMAND
+  # $<TARGET_FILE:device_handler_benchmark> >
+  # ${CMAKE_SOURCE_DIR}/benchmark_report.txt)
 ENDIF ()
 
 ADD_CUSTOM_TARGET (
