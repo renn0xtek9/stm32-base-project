@@ -4,8 +4,8 @@ ADD_TEST (
   CONFIGURATIONS Debug
   WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 SET_TESTS_PROPERTIES (
-  code_coverage PROPERTIES FIXTURES_CLEANUP unit_tests FIXTURE_REQUIRED quality
-                           LABELS quality)
+  code_coverage PROPERTIES FIXTURES_REQUIRED "unit_tests;quality" LABELS
+                           quality)
 
 ADD_CUSTOM_TARGET (
   disassemble

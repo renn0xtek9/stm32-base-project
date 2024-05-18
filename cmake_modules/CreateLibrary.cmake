@@ -34,7 +34,7 @@ FUNCTION (create_library)
 
     SET (GCC_COVERAGE_COMPILE_FLAGS -g -O0 -coverage -fprofile-arcs
                                     -ftest-coverage)
-    SET (GCC_COVERAGE_LINK_FLAGS -coverage -lgcov)
+    SET (GCC_COVERAGE_LINK_FLAGS -coverage -lgcov -ftest-coverage)
 
     TARGET_COMPILE_OPTIONS (${LIBNAME} PRIVATE ${GCC_COVERAGE_COMPILE_FLAGS})
 
