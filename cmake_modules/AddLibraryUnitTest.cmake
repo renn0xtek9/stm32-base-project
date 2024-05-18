@@ -18,6 +18,27 @@ FUNCTION (add_library_unit_test)
   ADD_EXECUTABLE (${LIBNAME}_test ${PARSED_ARGS_SRCS})
   TARGET_LINK_LIBRARIES (${LIBNAME}_test ${LIBNAME} ${GTEST_BOTH_LIBRARIES})
   ADD_TEST (NAME ${LIBNAME}_test COMMAND ${LIBNAME}_test)
-  SET_TESTS_PROPERTIES (${LIBNAME}_test PROPERTIES FIXTURES_REQUIRED unit_tests)
+  SET_TESTS_PROPERTIES (
+    ${LIBNAME}_test PROPERTIES FIXTURES_REQUIRED "unit_tests" LABELS
+                               "unit_tests")
+
+  ADD_CUSTOM_COMMAND (
+    COMMAND
+      valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
+      --verbose --log-file=valgrind-${LIBNAME}-out.txt
+      $<TARGET_FILE:${LIBNAME}_test>
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    OUTPUT valgrind-${LIBNAME}-out.txt
+    COMMENT "Analying ${LIBNAME}-test with valgrind")
+
+  ADD_CUSTOM_TARGET (valgrind-leak-check-${LIBNAME}
+                     DEPENDS valgrind-${LIBNAME}-out.txt)
+
+  ADD_TEST (
+    NAME memory_leak_analysis-${LIBNAME}
+    COMMAND make valgrind-leak-check-${LIBNAME}
+    CONFIGURATIONS Debug)
+  SET_TESTS_PROPERTIES (memory_leak_analysis-${LIBNAME}
+                        PROPERTIES FIXTURES_REQUIRED "quality" LABELS "quality")
 
 ENDFUNCTION ()
