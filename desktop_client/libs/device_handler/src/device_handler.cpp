@@ -3,6 +3,7 @@
 #include <unistd.h>
 
 #include <cstring>
+#include <functional>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -15,8 +16,8 @@ bool CheckDeviceFileExists(const std::string& device_file_path) {
   }
 }
 
-int OpenDeviceFile(const std::string& device_file_path) {
-  int file_descriptor = open(device_file_path.c_str(), O_RDWR | O_NOCTTY | O_SYNC);
+int OpenDeviceFile(const std::string& device_file_path, std::function<int(const char*, int)> open_func) {
+  int file_descriptor = open_func(device_file_path.c_str(), O_RDWR | O_NOCTTY | O_SYNC);
   if (file_descriptor < 0) {
     std::cerr << "Error opening device file: " << strerror(errno) << std::endl;
     return 1;

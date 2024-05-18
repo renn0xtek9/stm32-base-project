@@ -3,6 +3,7 @@
 */
 #include <unistd.h>
 
+#include <functional>
 #include <iostream>
 
 /*! \fn void CheckDeviceFileExists()
@@ -11,3 +12,5 @@
  * \return true if the device file exists, false otherwise
  */
 bool CheckDeviceFileExists(const std::string& device_file_path);
+
+int OpenDeviceFile(const std::string& device_file_path, std::function<int(const char*, int)> open_func);

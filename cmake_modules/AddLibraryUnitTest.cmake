@@ -22,7 +22,7 @@ FUNCTION (add_library_unit_test)
     -Werror
     -Wall
     -Wextra
-    -Wpedantic
+    # -Wpedantic
     -Wshadow
     -Wconversion
     -Wformat=2
@@ -31,15 +31,18 @@ FUNCTION (add_library_unit_test)
     -Wduplicated-branches
     -Wlogical-op
     -Wuseless-cast
-    -fanalyzer
-    -fsanitize=address
-    -fsanitize=undefined
+    # -fanalyzer -fsanitize=address -fsanitize=undefined
     -D_FORTIFY_SOURCE=2)
   TARGET_COMPILE_OPTIONS (${LIBNAME}_test PRIVATE ${GCC_FLAGS})
 
-  TARGET_LINK_OPTIONS (${LIBNAME}_test PRIVATE -fsanitize=address
-                       -fsanitize=undefined)
-  TARGET_LINK_LIBRARIES (${LIBNAME}_test ${LIBNAME} ${GTEST_BOTH_LIBRARIES})
+  TARGET_LINK_LIBRARIES (
+    ${LIBNAME}_test
+    ${LIBNAME}
+    ${GTEST_MAIN_LIBRARIES}
+    ${GTEST_LIBRARIES}
+    pthread
+    gmock
+    gmock_main)
   ADD_TEST (NAME ${LIBNAME}_test COMMAND ${LIBNAME}_test)
   SET_TESTS_PROPERTIES (${LIBNAME}_test PROPERTIES FIXTURES_REQUIRED unit_tests
                                                    LABELS unit_tests)

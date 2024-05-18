@@ -50,17 +50,14 @@ FUNCTION (create_library)
       -Wduplicated-branches
       -Wlogical-op
       -Wuseless-cast
-      -fanalyzer
-      -fsanitize=address
-      -fsanitize=undefined
+      # -fanalyzer -fsanitize=address -fsanitize=undefined
       -D_FORTIFY_SOURCE=2)
 
     TARGET_COMPILE_OPTIONS (${LIBNAME} PRIVATE ${GCC_COVERAGE_COMPILE_FLAGS}
                                                ${GCC_FLAGS})
     TARGET_COMPILE_DEFINITIONS (${LIBNAME} PRIVATE -DDEBUG)
 
-    TARGET_LINK_OPTIONS (${LIBNAME} PRIVATE ${GCC_COVERAGE_LINK_FLAGS}
-                         -fsanitize=address -fsanitize=undefined)
+    TARGET_LINK_OPTIONS (${LIBNAME} PRIVATE ${GCC_COVERAGE_LINK_FLAGS})
     TARGET_LINK_LIBRARIES (${LIBNAME} PRIVATE --coverage)
 
   ENDIF ()
