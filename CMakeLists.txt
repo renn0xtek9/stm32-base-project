@@ -16,6 +16,8 @@ INCLUDE (${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 CONAN_BASIC_SETUP (PROFILE ${CMAKE_SOURCE_DIR}/conan_profiles/linux-x86)
 
 INCLUDE (Packaging)
+INCLUDE (AddLibraryUnitTest)
+INCLUDE (CreateLibrary)
 ENABLE_TESTING ()
 
 ADD_SUBDIRECTORY (desktop_client)

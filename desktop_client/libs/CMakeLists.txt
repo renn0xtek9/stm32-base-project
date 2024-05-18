@@ -1,1 +1,2 @@
-ADD_SUBDIRECTORY (device_handler)
+SET (LIBNAME device_handler)
+ADD_SUBDIRECTORY (${LIBNAME})
