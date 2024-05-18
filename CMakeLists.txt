@@ -15,8 +15,8 @@ LIST (APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules/)
 INCLUDE (${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 CONAN_BASIC_SETUP (PROFILE ${CMAKE_SOURCE_DIR}/conan_profiles/linux-x86)
 
-INCLUDE (GenerateGitHashAtConfigTime)
-INCLUDE (GenerateGitHashAtBuildTime)
+INCLUDE (Packaging)
+ENABLE_TESTING ()
 
 ADD_SUBDIRECTORY (desktop_client)
 ADD_SUBDIRECTORY (test)

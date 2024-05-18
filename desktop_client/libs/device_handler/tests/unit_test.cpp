@@ -2,7 +2,7 @@
 \brief unit tests of probe library
 */
 
-#include <device_handler.h>
+#include <device_handler/device_handler.h>
 #include <gtest/gtest.h>
 
 /*! \test CheckDeviceFileExists_DoesNotThrowIfNotExisting
