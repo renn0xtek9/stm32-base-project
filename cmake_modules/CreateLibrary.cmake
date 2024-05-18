@@ -36,11 +36,31 @@ FUNCTION (create_library)
                                     -ftest-coverage)
     SET (GCC_COVERAGE_LINK_FLAGS -coverage -lgcov -ftest-coverage)
 
-    TARGET_COMPILE_OPTIONS (${LIBNAME} PRIVATE ${GCC_COVERAGE_COMPILE_FLAGS})
+    SET (
+      GCC_FLAGS
+      -Werror
+      -Wall
+      -Wextra
+      -Wpedantic
+      -Wshadow
+      -Wconversion
+      -Wformat=2
+      -Wnull-dereference
+      -Wduplicated-cond
+      -Wduplicated-branches
+      -Wlogical-op
+      -Wuseless-cast
+      -fanalyzer
+      -fsanitize=address
+      -fsanitize=undefined
+      -D_FORTIFY_SOURCE=2)
 
+    TARGET_COMPILE_OPTIONS (${LIBNAME} PRIVATE ${GCC_COVERAGE_COMPILE_FLAGS}
+                                               ${GCC_FLAGS})
     TARGET_COMPILE_DEFINITIONS (${LIBNAME} PRIVATE -DDEBUG)
-    TARGET_LINK_OPTIONS (${LIBNAME} PRIVATE ${GCC_COVERAGE_LINK_FLAGS})
 
+    TARGET_LINK_OPTIONS (${LIBNAME} PRIVATE ${GCC_COVERAGE_LINK_FLAGS}
+                         -fsanitize=address -fsanitize=undefined)
     TARGET_LINK_LIBRARIES (${LIBNAME} PRIVATE --coverage)
 
   ENDIF ()
