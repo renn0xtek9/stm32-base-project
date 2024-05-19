@@ -2,11 +2,11 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#include <cstring>
-#include <functional>
 #include <iostream>
-#include <string>
-#include <vector>
+
+int OpenWrapper(const char* pathname, int flags) {
+  return open(pathname, flags);
+}
 
 bool CheckDeviceFileExists(const std::string& device_file_path) {
   if (access(device_file_path.c_str(), F_OK) == 0) {

@@ -1,10 +1,21 @@
 /*! \file device_handler.h
 \brief Handle STM32 device
 */
+#include <fcntl.h>
 #include <unistd.h>
 
+#include <cstring>
 #include <functional>
 #include <iostream>
+#include <string>
+
+/*! \fn int OpenWrapper
+ * \brief This is a wrapper around the OS function that opens a file
+ * \param pathname path to the file to open [in]
+ * \param flags opening flags [in]
+ * \return file_descriptor
+ */
+int OpenWrapper(const char* pathname, int flags);
 
 /*! \fn void CheckDeviceFileExists
  * \brief This checks whether the device file has been created by the Linux kernel
