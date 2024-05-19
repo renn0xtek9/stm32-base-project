@@ -29,6 +29,9 @@ TEST(CheckDeviceFileExists, ReturnFalse) {
   EXPECT_FALSE(CheckDeviceFileExists("/dev/not_a_real_device"));
 }
 
+/*! \test OpenDeviceFileTest Success
+ * \brief Check opening of file devie with success
+ */
 TEST_F(OpenDeviceFileTest, OpenFileSuccess) {
   EXPECT_CALL(mock_file_operations, open(::testing::_, O_RDWR | O_NOCTTY | O_SYNC)).WillOnce(::testing::Return(5));
 
@@ -38,11 +41,14 @@ TEST_F(OpenDeviceFileTest, OpenFileSuccess) {
   EXPECT_EQ(result, 5);
 }
 
+/*! \test OpenDeviceFileTest Failure
+ * \brief Check opening of file devie with failure
+ */
 TEST_F(OpenDeviceFileTest, OpenFileFailure) {
   EXPECT_CALL(mock_file_operations, open(::testing::_, O_RDWR | O_NOCTTY | O_SYNC)).WillOnce(::testing::Return(-1));
 
   int result = OpenDeviceFile("/dev/some_file",
                               [this](const char* path, int flags) { return mock_file_operations.open(path, flags); });
 
-  EXPECT_EQ(result, 1);
+  EXPECT_EQ(result, -1);
 }
