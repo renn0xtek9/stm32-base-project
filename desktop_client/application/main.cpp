@@ -6,14 +6,10 @@
 
 #include "version.hpp"
 
-int returnvecsize() {
-  std::vector<int> vec;
-  vec.emplace_back(1);
-  return (vec.size() == 1);
-}
-
 int main(int argc, char** argv) {
-  if (returnvecsize()) std::cout << "done" << std::endl;
-  std::cout << "Version: " << getVersion();
+  DeviceHandler device_handler;
+  while (device_handler.HandleDevice(micro_controller_device_file_path)) {
+  }
+
   return 0;
 }

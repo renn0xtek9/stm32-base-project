@@ -1,6 +1,9 @@
+#ifndef DEVICE_HANDLER_DEVICE_HANDLER_H
+#define DEVICE_HANDLER_DEVICE_HANDLER_H
 /*! \file device_handler.h
 \brief Handle STM32 device
 */
+#include <device_handler/os_abstraction_layer.h>
 #include <fcntl.h>
 #include <unistd.h>
 
@@ -9,24 +12,26 @@
 #include <iostream>
 #include <string>
 
-/*! \fn int OpenWrapper
- * \brief This is a wrapper around the OS function that opens a file
- * \param pathname path to the file to open [in]
- * \param flags opening flags [in]
- * \return file_descriptor
- */
-int OpenWrapper(const char* pathname, int flags);
+const std::string micro_controller_device_file_path = "/dev/some_file";
 
-/*! \fn void CheckDeviceFileExists
- * \brief This checks whether the device file has been created by the Linux kernel
- * \param device_file_path the path device file to check
- * \return true if the device file exists, false otherwise
- */
-bool CheckDeviceFileExists(const std::string& device_file_path);
+class DeviceHandler {
+ public:
+  explicit DeviceHandler(const OsAbstractionLayer::OsAbstractionLayer& os_layer);
+  ~DeviceHandler() = default;
+  DeviceHandler(const DeviceHandler&) = default;
+  DeviceHandler(DeviceHandler&&) = default;
+  DeviceHandler& operator=(const DeviceHandler&) = default;
+  DeviceHandler& operator=(DeviceHandler&&) = default;
 
-/*! \fn int OpenDeviceFile
- *\brief This Open a device file
- *\param device_file_path the path device file to check
- *\return file_descriptor_id. -1 if the file could not be opened
- */
-int OpenDeviceFile(const std::string& device_file_path, std::function<int(const char*, int)> open_func);
+  /*! \fn bool HandleDevice
+   * \brief This function handles the device
+   * \param device_file_path the path device file to check
+   * \return This will return false if the handling has to be terminated
+   */
+  bool HandleDevice(const std::string device_file_path);
+
+ private:
+  const OsAbstractionLayer::OsAbstractionLayer& os_layer_;
+};
+
+#endif  // DEVICE_HANDLER_DEVICE_HANDLER_H

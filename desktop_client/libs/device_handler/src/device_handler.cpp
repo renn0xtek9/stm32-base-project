@@ -2,27 +2,28 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+#include <chrono>
 #include <iostream>
+#include <thread>
 
-// LCOV_EXCL_START
-int OpenWrapper(const char* pathname, int flags) {
-  return open(pathname, flags);
+DeviceHandler::DeviceHandler(const OsAbstractionLayer::OsAbstractionLayer& os_layer) : os_layer_(os_layer) {
 }
-// LCOV_EXCL_STOP
 
-bool CheckDeviceFileExists(const std::string& device_file_path) {
-  if (access(device_file_path.c_str(), F_OK) == 0) {
+bool DeviceHandler::HandleDevice(const std::string device_file_path) {
+  if (!os_layer_.CheckDeviceFileExists(device_file_path)) {
+    std::cerr << "Device file does not exist" << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(1));
     return true;
-  } else {
+  }
+
+  int file_descriptor = os_layer_.OpenDeviceFile(device_file_path);
+  if (file_descriptor < 0) {
     return false;
   }
-}
 
-int OpenDeviceFile(const std::string& device_file_path, std::function<int(const char*, int)> open_func) {
-  int file_descriptor = open_func(device_file_path.c_str(), O_RDWR | O_NOCTTY | O_SYNC);
-  if (file_descriptor < 0) {
-    std::cerr << "Error opening device file: " << strerror(errno) << std::endl;
-    return -1;
-  }
-  return file_descriptor;
+  // Do something with the device
+  // publish_to_device("Hello device");
+
+  os_layer_.CloseDeviceFile(file_descriptor);
+  return false;
 }
