@@ -6,6 +6,7 @@ ADD_TEST (
 SET_TESTS_PROPERTIES (
   code_coverage PROPERTIES FIXTURES_REQUIRED "unit_tests;quality" LABELS
                            quality)
+SET_TESTS_PROPERTIES (code_coverage PROPERTIES DEPENDS "unit_tests")
 
 ADD_CUSTOM_TARGET (
   disassemble
