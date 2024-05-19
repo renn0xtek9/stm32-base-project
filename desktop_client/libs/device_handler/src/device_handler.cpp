@@ -4,9 +4,11 @@
 
 #include <iostream>
 
+// LCOV_EXCL_START
 int OpenWrapper(const char* pathname, int flags) {
   return open(pathname, flags);
 }
+// LCOV_EXCL_STOP
 
 bool CheckDeviceFileExists(const std::string& device_file_path) {
   if (access(device_file_path.c_str(), F_OK) == 0) {
