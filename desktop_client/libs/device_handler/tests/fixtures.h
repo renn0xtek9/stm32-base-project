@@ -19,7 +19,7 @@
 
 class HandleDeviceFileTest : public ::testing::Test {
  protected:
-  MockOsAbstractionLayer os_abstraction_layer_{};
+  OsAbstractionLayer::MockOsAbstractionLayer os_abstraction_layer_{};
 };
 
 #endif  // FIXTURES_H

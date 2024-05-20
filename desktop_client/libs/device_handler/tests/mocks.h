@@ -1,5 +1,5 @@
 #ifndef MOCKS_H
-#ifndef MOCKS_H
+#define MOCKS_H
 
 #include <device_handler/os_abstraction_layer.h>
 #include <gmock/gmock.h>
@@ -8,11 +8,13 @@
 #include <functional>
 #include <string>
 
+namespace OsAbstractionLayer {
+
 class MockOsAbstractionLayer : public OsAbstractionLayer {
  public:
-  MOCK_METHOD(bool, CheckDeviceFileExists, (const std::string& device_file_path), (const, override));
-  MOCK_METHOD(int, OpenDeviceFile, (const std::string& device_file_path), (const, override));
-  MOCK_METHOD(int, CloseDeviceFile, (int file_descriptor), (const, override));
+  MOCK_METHOD(bool, CheckDeviceFileExists, (const std::string& device_file_path), (const));
+  MOCK_METHOD(int, OpenDeviceFile, (const std::string& device_file_path), (const));
+  MOCK_METHOD(int, CloseDeviceFile, (int file_descriptor), (const));
 };
 
 // class MockFileOperations {
@@ -32,5 +34,6 @@ class MockOsAbstractionLayer : public OsAbstractionLayer {
 //  public:
 //   MOCK_METHOD(bool, CheckDeviceFileExists, (const std::string& device_file_path), ());
 // };
+}  // namespace OsAbstractionLayer
 
 #endif  // MOCKS_H
