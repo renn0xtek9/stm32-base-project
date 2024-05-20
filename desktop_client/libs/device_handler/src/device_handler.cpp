@@ -1,3 +1,4 @@
+// "Copyright 2024 <Maxime Haselbauer>"
 #include <device_handler/device_handler.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -21,11 +22,11 @@ bool DeviceHandler::HandleDevice(const std::string device_file_path) {
     return false;
   }
 
-  PublishToDevice(messages::CommunicationMessage());
+  PublishToDevice(CommunicationMessage());
 
   os_layer_.CloseDeviceFile(file_descriptor);
   return false;
 }
 
-void DeviceHandler::PublishToDevice(const messages::CommunicationMessage&) {
+void DeviceHandler::PublishToDevice(const CommunicationMessage&) {
 }

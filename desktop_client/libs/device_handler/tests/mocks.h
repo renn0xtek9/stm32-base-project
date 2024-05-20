@@ -1,3 +1,4 @@
+// Copyright 2024 <Maxime Haselbauer>
 #ifndef MOCKS_H
 #define MOCKS_H
 

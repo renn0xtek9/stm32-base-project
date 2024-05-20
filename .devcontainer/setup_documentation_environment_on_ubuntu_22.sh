@@ -1,5 +1,6 @@
-#!/bin/bash 
+#!/bin/bash
 set -euxo pipefail
+# shellcheck disable=SC2034
 DEBIAN_FRONTEND=noninteractive
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$DIR"

@@ -1,3 +1,4 @@
+// Copyright 2024 <Maxime Haselbauer>
 /*! \file unit_test.cpp
  * \brief unit tests of device handler library
  */

@@ -1,3 +1,4 @@
+// Copyright 2024 <Maxime Haselbauer>
 #ifndef FIXTURES_H
 #define FIXTURES_H
 #include <gmock/gmock.h>

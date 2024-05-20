@@ -1,3 +1,4 @@
+// Copyright 2024 <Maxime Haselbauer>
 #ifndef DEVICE_HANDLER_OS_ABSTRACTION_LAYER_H
 #define DEVICE_HANDLER_OS_ABSTRACTION_LAYER_H
 #include <fcntl.h>

@@ -1,3 +1,4 @@
+// Copyright 2024 <Maxime Haselbauer>
 /*! \file unit_test.cpp
  *\brief unit tests of serializer
  */
@@ -13,7 +14,7 @@
 TEST(CommunicationMessage, SerializeToString) {
   messages::CommunicationMessage message;
 
-  strncpy(message.message, "Hello\0", messages::MAXIMUM_MESSAGE_LENGTH - 1);
+  strncpy(message.message, "Hello\0", MAXIMUM_MESSAGE_LENGTH - 1);
 
   message.message_length = 5;
   message.value = 42;

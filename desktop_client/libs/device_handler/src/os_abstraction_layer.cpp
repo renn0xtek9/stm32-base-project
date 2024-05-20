@@ -1,3 +1,4 @@
+// Copyright 2024 <Maxime Haselbauer>
 #include <device_handler/os_abstraction_layer.h>
 
 #include <cstring>

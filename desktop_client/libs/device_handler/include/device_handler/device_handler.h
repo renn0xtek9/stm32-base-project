@@ -1,3 +1,4 @@
+// Copyright 2024 <Maxime Haselbauer>
 #ifndef DEVICE_HANDLER_DEVICE_HANDLER_H
 #define DEVICE_HANDLER_DEVICE_HANDLER_H
 /*! \file device_handler.h
@@ -13,7 +14,7 @@
 #include <iostream>
 #include <string>
 
-const std::string micro_controller_device_file_path = "/dev/some_file";
+const char micro_controller_device_file_path[] = "/dev/some_file";
 
 class DeviceHandler {
  public:
@@ -36,7 +37,7 @@ class DeviceHandler {
    * \brief This publishes message to the device
    * \param message the message to publish
    */
-  void PublishToDevice(const messages::CommunicationMessage& message);
+  void PublishToDevice(const CommunicationMessage& message);
   const OsAbstractionLayer::OsAbstractionLayer& os_layer_;
 };
 

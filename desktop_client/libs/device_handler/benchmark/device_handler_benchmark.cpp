@@ -1,3 +1,4 @@
+// Copyright 2024 <Maxime Haselbauer>
 /*! \file device_handler_benchmark.cpp
  * \brief Benchmark runtime of probe library
  */
