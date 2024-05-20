@@ -18,7 +18,7 @@ const char micro_controller_device_file_path[] = "/dev/some_file";
 
 class DeviceHandler {
  public:
-  explicit DeviceHandler(const OsAbstractionLayer::OsAbstractionLayer& os_layer);
+  explicit DeviceHandler(const OsAbstractionLayer::OsAbstractionLayerInterface& os_layer);
   ~DeviceHandler() = default;
   DeviceHandler(const DeviceHandler&) = default;
   DeviceHandler(DeviceHandler&&) = default;
@@ -38,7 +38,7 @@ class DeviceHandler {
    * \param message the message to publish
    */
   void PublishToDevice(const CommunicationMessage& message);
-  const OsAbstractionLayer::OsAbstractionLayer& os_layer_;
+  const OsAbstractionLayer::OsAbstractionLayerInterface& os_layer_;
 };
 
 #endif  // DEVICE_HANDLER_DEVICE_HANDLER_H

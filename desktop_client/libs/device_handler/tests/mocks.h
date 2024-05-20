@@ -2,7 +2,7 @@
 #ifndef MOCKS_H
 #define MOCKS_H
 
-#include <device_handler/os_abstraction_layer.h>
+#include <device_handler/os_abstraction_layer_interface.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
@@ -11,30 +11,13 @@
 
 namespace OsAbstractionLayer {
 
-class MockOsAbstractionLayer : public OsAbstractionLayer {
+class MockOsAbstractionLayer : public OsAbstractionLayerInterface {
  public:
-  MOCK_METHOD(bool, CheckDeviceFileExists, (const std::string& device_file_path), (const));
-  MOCK_METHOD(int, OpenDeviceFile, (const std::string& device_file_path), (const));
-  MOCK_METHOD(int, CloseDeviceFile, (int file_descriptor), (const));
+  MOCK_METHOD(bool, CheckDeviceFileExists, (const std::string& device_file_path), (const, override));
+  MOCK_METHOD(int, OpenDeviceFile, (const std::string& device_file_path), (const, override));
+  MOCK_METHOD(int, CloseDeviceFile, (int file_descriptor), (const, override));
 };
 
-// class MockFileOperations {
-//  public:
-//   MOCK_METHOD(int, open, (const char* pathname, int flags), ());
-// };
-
-// class MockOpenDeviceFile {
-//  public:
-//   MOCK_METHOD(int,
-//               OpenDeviceFile,
-//               (const std::string& device_file_path, std::function<int(const char*, int)> open_func),
-//               ());
-// };
-
-// class MockCheckDeviceFileExists {
-//  public:
-//   MOCK_METHOD(bool, CheckDeviceFileExists, (const std::string& device_file_path), ());
-// };
 }  // namespace OsAbstractionLayer
 
 #endif  // MOCKS_H

@@ -9,16 +9,37 @@
 
 #include "fixtures.h"
 
+using ::testing::_;
+using ::testing::Return;
+
 /*! \test HandleDevice Returns true if file is not found
  */
-TEST_F(HandleDeviceFileTest, DeviceFileNotFoundReturnTrue) {
-  DeviceHandler device_handler{os_abstraction_layer_};
-  EXPECT_TRUE(device_handler.HandleDevice("/dev/not_a_real_device"));
+TEST_F(HandleDeviceFileTest, DeviceFileFoundAndOpenedReturnFalse) {
+  EXPECT_CALL(os_abstraction_layer_, CheckDeviceFileExists("existing_file")).WillOnce(Return(true));
+  EXPECT_CALL(os_abstraction_layer_, OpenDeviceFile("existing_file")).WillOnce(Return(10));
+  EXPECT_CALL(os_abstraction_layer_, CloseDeviceFile(10)).WillOnce(Return(0));
+
+  DeviceHandler device_handler(os_abstraction_layer_);
+  EXPECT_FALSE(device_handler.HandleDevice("existing_file"));
 }
+
+/**/
 
 /*! \test HandleDevice Returns false if file is found and we can open it
  */
-TEST_F(HandleDeviceFileTest, DeviceFileFoundAndReturnFalse) {
-  DeviceHandler device_handler{os_abstraction_layer_};
+TEST_F(HandleDeviceFileTest, DeviceFileDoesNotExistReturnTrue) {
+  EXPECT_CALL(os_abstraction_layer_, CheckDeviceFileExists("non_existing_file")).WillOnce(Return(false));
+
+  DeviceHandler device_handler(os_abstraction_layer_);
+  EXPECT_TRUE(device_handler.HandleDevice("non_existing_file"));
+}
+
+/*! \test HandleDevice Returns true if file is found and we cannot open it
+ */
+TEST_F(HandleDeviceFileTest, DeviceFileFoundButCannotOpenReturnTrue) {
+  EXPECT_CALL(os_abstraction_layer_, CheckDeviceFileExists("existing_file")).WillOnce(Return(true));
+  EXPECT_CALL(os_abstraction_layer_, OpenDeviceFile("existing_file")).WillOnce(Return(-1));
+
+  DeviceHandler device_handler(os_abstraction_layer_);
   EXPECT_FALSE(device_handler.HandleDevice("existing_file"));
 }

@@ -12,7 +12,7 @@
 
 /*! \test Serialize communication_message to string*/
 TEST(CommunicationMessage, SerializeToString) {
-  messages::CommunicationMessage message;
+  CommunicationMessage message;
 
   strncpy(message.message, "Hello\0", MAXIMUM_MESSAGE_LENGTH - 1);
 

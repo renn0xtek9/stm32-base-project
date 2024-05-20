@@ -1,4 +1,4 @@
-// "Copyright 2024 <Maxime Haselbauer>"
+// Copyright 2024 <Maxime Haselbauer>
 #include <device_handler/device_handler.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -7,7 +7,7 @@
 #include <iostream>
 #include <thread>
 
-DeviceHandler::DeviceHandler(const OsAbstractionLayer::OsAbstractionLayer& os_layer) : os_layer_(os_layer) {
+DeviceHandler::DeviceHandler(const OsAbstractionLayer::OsAbstractionLayerInterface& os_layer) : os_layer_(os_layer) {
 }
 
 bool DeviceHandler::HandleDevice(const std::string device_file_path) {
