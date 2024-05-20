@@ -21,9 +21,11 @@ bool DeviceHandler::HandleDevice(const std::string device_file_path) {
     return false;
   }
 
-  // Do something with the device
-  // publish_to_device("Hello device");
+  PublishToDevice(messages::CommunicationMessage());
 
   os_layer_.CloseDeviceFile(file_descriptor);
   return false;
+}
+
+void DeviceHandler::PublishToDevice(const messages::CommunicationMessage&) {
 }

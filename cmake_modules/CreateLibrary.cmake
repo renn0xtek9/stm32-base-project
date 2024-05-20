@@ -4,8 +4,9 @@ FUNCTION (create_library)
     PARSED_ARGS
     "" # List of boolean names
     "" # list of names of mono-valued arguments
-    "SRCS;PUBLIC_HEADERS" # list of names of multi-valued arguments (output
-                          # variables are lists)
+    "SRCS;PUBLIC_HEADERS;LINK_LIBRARIES" # list of names of multi-valued
+                                         # arguments (output
+    # variables are lists)
     ${ARGN} # arguments of the function to parse, here we take the all original
             # ones
   )
@@ -22,6 +23,8 @@ FUNCTION (create_library)
   TARGET_INCLUDE_DIRECTORIES (
     ${LIBNAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>
                       $<INSTALL_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+
+  TARGET_LINK_LIBRARIES (${LIBNAME} PUBLIC ${PARSED_ARGS_LINK_LIBRARIES})
 
   SET_TARGET_PROPERTIES (${LIBNAME} PROPERTIES PUBLIC_HEADER
                                                "${PARSED_ARGS_PUBLIC_HEADERS}")

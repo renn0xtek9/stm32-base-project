@@ -1,6 +1,6 @@
 /*! \file unit_test.cpp
-\brief unit tests of probe library
-*/
+ * \brief unit tests of device handler library
+ */
 #include <device_handler/device_handler.h>
 #include <fcntl.h>
 #include <gmock/gmock.h>

@@ -5,6 +5,7 @@
 */
 #include <device_handler/os_abstraction_layer.h>
 #include <fcntl.h>
+#include <messages/communication_message.h>
 #include <unistd.h>
 
 #include <cstring>
@@ -31,6 +32,11 @@ class DeviceHandler {
   bool HandleDevice(const std::string device_file_path);
 
  private:
+  /*! \fn PublishToDevice
+   * \brief This publishes message to the device
+   * \param message the message to publish
+   */
+  void PublishToDevice(const messages::CommunicationMessage& message);
   const OsAbstractionLayer::OsAbstractionLayer& os_layer_;
 };
 
