@@ -1,5 +1,5 @@
 .vscode/
 build*/*
 output/*
-documentation/*.bbl 
+documentation/*.bbl
 documentation/*.blg

@@ -11,7 +11,7 @@ jobs:
         run: ./.devcontainer/setup_build_environment_on_ubuntu_22.sh
       - name: Check formating
         run: ./scripts/format.sh
-      - name: Configure 
+      - name: Configure
         run: ./scripts/configure.sh
       - name: Build
         run: ./scripts/build.sh

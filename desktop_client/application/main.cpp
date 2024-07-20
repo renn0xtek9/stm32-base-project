@@ -1,4 +1,6 @@
+// Copyright 2024 <Maxime Haselbauer>
 #include <device_handler/device_handler.h>
+#include <device_handler/os_abstraction_layer.h>
 
 #include <iostream>
 #include <memory>
@@ -6,14 +8,12 @@
 
 #include "version.hpp"
 
-int returnvecsize() {
-  std::vector<int> vec;
-  vec.emplace_back(1);
-  return (vec.size() == 1);
-}
+int main(int, char**) {
+  OsAbstractionLayer::OsAbstractionLayer os_abstraction_layer{};
 
-int main(int argc, char** argv) {
-  if (returnvecsize()) std::cout << "done" << std::endl;
-  std::cout << "Version: " << getVersion();
+  DeviceHandler device_handler(os_abstraction_layer);
+  while (device_handler.HandleDevice(micro_controller_device_file_path)) {
+  }
+
   return 0;
 }

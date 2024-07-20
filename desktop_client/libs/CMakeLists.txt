@@ -1,2 +1,1 @@
-SET (LIBNAME device_handler)
-ADD_SUBDIRECTORY (${LIBNAME})
+ADD_SUBDIRECTORY (device_handler)
