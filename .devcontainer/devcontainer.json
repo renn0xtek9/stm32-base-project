@@ -22,11 +22,12 @@
         "ms-vscode.cpptools-themes",
         "hbenl.vscode-test-explorer",
         "malcolmmielle.semantic-highlighting",
-        "derivitec-ltd.cmake-test-adapter"
+        "derivitec-ltd.cmake-test-adapter",
+        "jebbs.plantuml"
       ]
     }
   },
-  "extensions":,
+  "extensions": ,
   "postCreateCommand": "sudo chown vscode:vscode /workspace && pre-commit install",
   "appPort": [],
   "remoteUser": "vscode",

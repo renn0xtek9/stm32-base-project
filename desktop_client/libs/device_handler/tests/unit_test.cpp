@@ -3,6 +3,7 @@
  * \brief unit tests of device handler library
  */
 #include <device_handler/device_handler.h>
+#include <device_handler/os_abstraction_layer.h>
 #include <fcntl.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -42,4 +43,10 @@ TEST_F(HandleDeviceFileTest, DeviceFileFoundButCannotOpenReturnTrue) {
 
   DeviceHandler device_handler(os_abstraction_layer_);
   EXPECT_FALSE(device_handler.HandleDevice("existing_file"));
+}
+
+/* \test Can safely instantiate and destroy OsAbstractionLayer
+ */
+TEST(OsAbstractionLayerTest, CanInstantiateOsAbstractionLayer) {
+  { OsAbstractionLayer::OsAbstractionLayer os_abstraction_layer{}; }
 }

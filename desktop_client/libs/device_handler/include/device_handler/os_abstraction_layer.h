@@ -12,7 +12,7 @@ namespace OsAbstractionLayer {
 
 class OsAbstractionLayer : public OsAbstractionLayerInterface {
  public:
-  virtual ~OsAbstractionLayer() = default;
+  // virtual ~OsAbstractionLayer() = default;
   /*! \fn void CheckDeviceFileExists
    * \brief This checks whether the device file has been created by the Linux kernel
    * \param device_file_path the path device file to check

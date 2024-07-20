@@ -5,7 +5,7 @@
 
 #include <chrono>
 #include <iostream>
-#include <thread>
+#include <thread>  // LCOV_EXCL_LINE
 
 DeviceHandler::DeviceHandler(const OsAbstractionLayer::OsAbstractionLayerInterface& os_layer) : os_layer_(os_layer) {
 }
