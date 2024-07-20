@@ -1,11 +1,21 @@
 INCLUDE (CMakeParseArguments)
+# add_library_unit_test - Add a unit test for a library
+#
+# This function supposes that LIBNAME is set The test will be named
+# ${LIBNAME}_test
+#
+# ADD_LIBRARY_UNIT_TEST( [SRCS <src1> <src2> ...] )
+#
+# In addition, it also creates a memory_leak_analysis-${LIBNAME} that check for
+# memory leaks using valgrind
 FUNCTION (add_library_unit_test)
+
   CMAKE_PARSE_ARGUMENTS (
     PARSED_ARGS # prefix of output variables
     "" # list of names of the boolean arguments (only defined ones will be true)
-    "NAME" # list of names of mono-valued arguments
-    "SRCS;DEPS" # list of names of multi-valued arguments (output variables are
-                # lists)
+    "" # list of names of mono-valued arguments
+    "SRCS" # list of names of multi-valued arguments (output variables are
+    # lists)
     ${ARGN} # arguments of the function to parse, here we take the all original
             # ones
   )
@@ -18,7 +28,7 @@ FUNCTION (add_library_unit_test)
   ADD_EXECUTABLE (${LIBNAME}_test ${PARSED_ARGS_SRCS})
 
   SET (
-    GCC_FLAGS
+    gcc_flags_
     -Werror
     -Wall
     -Wextra
@@ -33,7 +43,7 @@ FUNCTION (add_library_unit_test)
     -Wuseless-cast
     # -fanalyzer -fsanitize=address -fsanitize=undefined
     -D_FORTIFY_SOURCE=2)
-  TARGET_COMPILE_OPTIONS (${LIBNAME}_test PRIVATE ${GCC_FLAGS})
+  TARGET_COMPILE_OPTIONS (${LIBNAME}_test PRIVATE ${gcc_flags_})
 
   TARGET_LINK_LIBRARIES (
     ${LIBNAME}_test
@@ -48,16 +58,19 @@ FUNCTION (add_library_unit_test)
                                                    LABELS unit_tests)
 
   ADD_CUSTOM_COMMAND (
+    COMMENT Analyze ${LIBNAME}_test with valgrind
     COMMAND
       valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
       --verbose --log-file=valgrind-${LIBNAME}-out.txt
       $<TARGET_FILE:${LIBNAME}_test>
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    OUTPUT valgrind-${LIBNAME}-out.txt
-    COMMENT "Analyze ${LIBNAME}_test with valgrind")
+    OUTPUT valgrind-${LIBNAME}-out.txt)
 
-  ADD_CUSTOM_TARGET (valgrind-leak-check-${LIBNAME}
-                     DEPENDS valgrind-${LIBNAME}-out.txt)
+  ADD_CUSTOM_TARGET (
+    valgrind-leak-check-${LIBNAME}
+    COMMENT Target:
+    valgrind-leak-check-${LIBNAME}
+    DEPENDS valgrind-${LIBNAME}-out.txt)
 
   ADD_TEST (
     NAME memory_leak_analysis-${LIBNAME}

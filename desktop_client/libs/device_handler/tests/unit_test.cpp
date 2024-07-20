@@ -1,54 +1,52 @@
+// Copyright 2024 <Maxime Haselbauer>
 /*! \file unit_test.cpp
-\brief unit tests of probe library
-*/
+ * \brief unit tests of device handler library
+ */
 #include <device_handler/device_handler.h>
+#include <device_handler/os_abstraction_layer.h>
 #include <fcntl.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-#include "utils.h"
+#include "fixtures.h"
 
-/*! \test CheckDeviceFileExists_DoesNotThrowIfNotExisting
- * \brief Check that the function does not throw
+using ::testing::_;
+using ::testing::Return;
+
+/*! \test HandleDevice Returns true if file is not found
  */
-TEST(CheckDeviceFileExists, NoThrow) {
-  EXPECT_NO_THROW(CheckDeviceFileExists("/dev/not_a_real_device"));
+TEST_F(HandleDeviceFileTest, DeviceFileFoundAndOpenedReturnFalse) {
+  EXPECT_CALL(os_abstraction_layer_, CheckDeviceFileExists("existing_file")).WillOnce(Return(true));
+  EXPECT_CALL(os_abstraction_layer_, OpenDeviceFile("existing_file")).WillOnce(Return(10));
+  EXPECT_CALL(os_abstraction_layer_, CloseDeviceFile(10)).WillOnce(Return(0));
+
+  DeviceHandler device_handler(os_abstraction_layer_);
+  EXPECT_FALSE(device_handler.HandleDevice("existing_file"));
 }
 
-/*! \test CheckDeviceFileExists_ReturTrueIfExisting
- * \brief Check that the function return true if the file exists
+/**/
+
+/*! \test HandleDevice Returns false if file is found and we can open it
  */
-TEST(CheckDeviceFileExists, ReturnTrue) {
-  EXPECT_TRUE(CheckDeviceFileExists("existing_file"));
+TEST_F(HandleDeviceFileTest, DeviceFileDoesNotExistReturnTrue) {
+  EXPECT_CALL(os_abstraction_layer_, CheckDeviceFileExists("non_existing_file")).WillOnce(Return(false));
+
+  DeviceHandler device_handler(os_abstraction_layer_);
+  EXPECT_TRUE(device_handler.HandleDevice("non_existing_file"));
 }
 
-/*! \test CheckDeviceFileExists_ReturFalseIfNotExisting
- * \brief Check that the function return false if the file does not exist
+/*! \test HandleDevice Returns true if file is found and we cannot open it
  */
-TEST(CheckDeviceFileExists, ReturnFalse) {
-  EXPECT_FALSE(CheckDeviceFileExists("/dev/not_a_real_device"));
+TEST_F(HandleDeviceFileTest, DeviceFileFoundButCannotOpenReturnTrue) {
+  EXPECT_CALL(os_abstraction_layer_, CheckDeviceFileExists("existing_file")).WillOnce(Return(true));
+  EXPECT_CALL(os_abstraction_layer_, OpenDeviceFile("existing_file")).WillOnce(Return(-1));
+
+  DeviceHandler device_handler(os_abstraction_layer_);
+  EXPECT_FALSE(device_handler.HandleDevice("existing_file"));
 }
 
-/*! \test OpenDeviceFileTest Success
- * \brief Check opening of file devie with success
+/* \test Can safely instantiate and destroy OsAbstractionLayer
  */
-TEST_F(OpenDeviceFileTest, OpenFileSuccess) {
-  EXPECT_CALL(mock_file_operations, open(::testing::_, O_RDWR | O_NOCTTY | O_SYNC)).WillOnce(::testing::Return(5));
-
-  int result = OpenDeviceFile("/dev/some_file",
-                              [this](const char* path, int flags) { return mock_file_operations.open(path, flags); });
-
-  EXPECT_EQ(result, 5);
-}
-
-/*! \test OpenDeviceFileTest Failure
- * \brief Check opening of file devie with failure
- */
-TEST_F(OpenDeviceFileTest, OpenFileFailure) {
-  EXPECT_CALL(mock_file_operations, open(::testing::_, O_RDWR | O_NOCTTY | O_SYNC)).WillOnce(::testing::Return(-1));
-
-  int result = OpenDeviceFile("/dev/some_file",
-                              [this](const char* path, int flags) { return mock_file_operations.open(path, flags); });
-
-  EXPECT_EQ(result, -1);
+TEST(OsAbstractionLayerTest, CanInstantiateOsAbstractionLayer) {
+  { OsAbstractionLayer::OsAbstractionLayer os_abstraction_layer{}; }
 }
