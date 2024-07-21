@@ -10,14 +10,14 @@ jobs:
       - name: Install development dependencies
         run: ./.devcontainer/setup_build_environment_on_ubuntu_22.sh
       - name: Check formating
-        run: ./scripts/format.sh
+        run: make format
       - name: Configure
-        run: ./scripts/configure.sh
+        run: make configure_release
       - name: Build
-        run: ./scripts/build.sh
+        run: make build_release
       - name: Tests
-        run: ./scripts/test.sh --stop-on-failure
+        run: make test
       - name: Validation
-        run: ./scripts/validate.sh
+        run: make validate
       - name: Packaging
-        run: ./scripts/packaging.sh
+        run: make packaging
