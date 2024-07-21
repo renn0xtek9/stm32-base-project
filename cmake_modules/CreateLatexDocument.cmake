@@ -47,12 +47,12 @@ MACRO (CreateLatexDocument _name _texsrc _resources _bibliography)
     COMMENT "Generating ${_name}. See ${CMAKE_CURRENT_BINARY_DIR}/${_name}.log"
     VERBATIM
     COMMAND
-      echo ${Magenta}${PDFLATEX} -halt-on-error -interaction errorstopmode
+      echo ${Magenta}${PDFLATEX} -halt-on-error -interaction nonstopmode
       -output-directory ${_output_folder}
-      ${CMAKE_CURRENT_SOURCE_DIR}/${_name}.tex${ColourReset}
+      ${CMAKE_CURRENT_SOURCE_DIR}/${_name}.tex ${ColourReset}
     COMMAND
-      ${PDFLATEX} -halt-on-error -output-directory ${_output_folder}
-      ${CMAKE_CURRENT_SOURCE_DIR}/${_name}.tex >
+      ${PDFLATEX} -halt-on-error -interaction nonstopmode -output-directory
+      ${_output_folder} ${CMAKE_CURRENT_SOURCE_DIR}/${_name}.tex >
       ${CMAKE_CURRENT_BINARY_DIR}/${_name}.log
     COMMAND echo ${Magenta} ${BIBER} --input-directory ${_output_folder}
             --output-directory ${_output_folder} ${_name}.bcf ${ColourReset}
@@ -83,10 +83,10 @@ MACRO (CreateLatexDocument _name _texsrc _resources _bibliography)
       ${_name}.acr ${_name}.acn >> ${CMAKE_CURRENT_BINARY_DIR}/${_name}.log
     COMMAND
       echo
-      "${Magenta}${PDFLATEX} -output-directory ${_output_folder} ${CMAKE_CURRENT_SOURCE_DIR}/${_name}.tex ${ColourReset}"
+      "${Magenta}${PDFLATEX} -output-directory ${_output_folder} -halt-on-error -interaction nonstopmode ${CMAKE_CURRENT_SOURCE_DIR}/${_name}.tex ${ColourReset}"
     COMMAND
-      ${PDFLATEX} -output-directory ${_output_folder}
-      ${CMAKE_CURRENT_SOURCE_DIR}/${_name}.tex >>
+      ${PDFLATEX} -output-directory ${_output_folder} -halt-on-error
+      -interaction nonstopmode ${CMAKE_CURRENT_SOURCE_DIR}/${_name}.tex >>
       ${CMAKE_CURRENT_BINARY_DIR}/${_name}.log)
 
 ENDMACRO ()

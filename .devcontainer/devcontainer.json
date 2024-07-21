@@ -35,7 +35,9 @@
     "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
     "source=${localEnv:HOME}/.bash_aliases,target=/home/vscode/.bash_aliases,type=bind,consistency=cached"
   ],
-  "containerEnv": {},
+  "containerEnv": {
+    "GH_TOKEN": "${localEnv:GH_TOKEN}"
+  },
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
   "workspaceFolder": "/workspace",
 }

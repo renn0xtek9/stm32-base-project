@@ -24,4 +24,4 @@ jobs:
             -v ${{ github.workspace }}:/workspace
             --name ci-container
           image: ci-image:latest
-          run: make configure && make build
+          run: make configure && make build_release
