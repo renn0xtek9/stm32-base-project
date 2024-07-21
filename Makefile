@@ -44,3 +44,6 @@ packaging: validate
 	cd $(BUILD_DIR_RELEASE) && make package
 
 all: packaging
+
+
+.PHONY: all clean test configure validate

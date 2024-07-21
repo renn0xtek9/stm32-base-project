@@ -13,6 +13,7 @@
     "vscode": {
       "extensions": [
         "ms-vscode.cmake-tools",
+        "ms-vscode.makefile-tools",
         "github.vscode-pull-request-github",
         "github.vscode-github-actions",
         "github.copilot",
