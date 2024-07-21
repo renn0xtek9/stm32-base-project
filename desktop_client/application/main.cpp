@@ -11,8 +11,10 @@
 int main(int, char**) {
   OsAbstractionLayer::OsAbstractionLayer os_abstraction_layer{};
 
+  const std::string serial_over_usb_device_file_path{"/dev/ttyACM0"};
+
   DeviceHandler device_handler(os_abstraction_layer);
-  while (device_handler.HandleDevice(micro_controller_device_file_path)) {
+  while (device_handler.HandleDevice(serial_over_usb_device_file_path)) {
   }
 
   return 0;
