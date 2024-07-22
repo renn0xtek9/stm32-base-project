@@ -21,3 +21,23 @@ jobs:
         run: make validate
       - name: Packaging
         run: make packaging
+      - name: Upload package
+        uses: actions/upload-artifact@v2
+        with:
+          name: package
+          path: ./build-x86-Release/stm32-helloworld-0.0.1-Linux.deb
+
+  Test-debian-package-installation-on-ubuntu-22-04:
+    needs: build_pipeline
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Download package
+      uses: actions/download-artifact@v2
+      with:
+        name: package
+
+    - name: Install package
+      run: sudo apt install -y stm32-helloworld-0.0.1-Linux.deb
+
+    - name: Smoke test desktop_client
+      run: desktop_client
