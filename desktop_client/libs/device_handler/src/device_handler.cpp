@@ -19,12 +19,10 @@ bool DeviceHandler::HandleDevice(const std::string device_file_path) {
 
   int file_descriptor = os_layer_.OpenDeviceFile(device_file_path);
   if (file_descriptor < 0) {
-    printf("FD <0");
     return false;
   }
 
   PublishToDevice(CommunicationMessage());
-  printf("Published");
   os_layer_.CloseDeviceFile(file_descriptor);
   return false;
 }
