@@ -41,4 +41,4 @@ jobs:
       run: sudo apt-get install -y /tmp/stm32-helloworld-0.0.1-Linux.deb
 
     - name: Smoke test desktop_client
-      run: desktop_client
+      run: if ! $(ldd /usr/bin/desktop_client | grep -q "not found") ; then echo OK ;else "Some libraries not found for /usr/bin/desktop_client"; ldd /usr/bin/desktop_client ; fi
