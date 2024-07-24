@@ -23,7 +23,6 @@ bool DeviceHandler::HandleDevice(const std::string device_file_path) {
   }
 
   PublishToDevice(CommunicationMessage());
-
   os_layer_.CloseDeviceFile(file_descriptor);
   return false;
 }
