@@ -12,13 +12,14 @@ DeviceHandler::DeviceHandler(const OsAbstractionLayer::OsAbstractionLayerInterfa
 
 bool DeviceHandler::HandleDevice(const std::string device_file_path) {
   if (!os_layer_.CheckDeviceFileExists(device_file_path)) {
-    std::cerr << "Device file does not exist" << std::endl;
+    std::cout << "Device file does not exist. (Will retry)" << std::endl;
     std::this_thread::sleep_for(std::chrono::seconds(1));
     return true;
   }
 
   int file_descriptor = os_layer_.OpenDeviceFile(device_file_path);
   if (file_descriptor < 0) {
+    std::cerr << "Could not open device file properly. Exiting" << std::endl;
     return false;
   }
 
@@ -28,4 +29,5 @@ bool DeviceHandler::HandleDevice(const std::string device_file_path) {
 }
 
 void DeviceHandler::PublishToDevice(const CommunicationMessage&) {
+  std::cout << "Publishing a message to the device:" << std::endl;
 }
