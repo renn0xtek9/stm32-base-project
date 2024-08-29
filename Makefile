@@ -20,6 +20,7 @@ clean:
 documentation: configure_debug
 	cd $(BUILD_DIR_DEBUG) && make requirements_document
 	cd $(BUILD_DIR_DEBUG) && make code_documentation
+	cd $(BUILD_DIR_DEBUG) && make software_build_process_documentation
 
 build_debug: configure_debug
 	cmake --build $(BUILD_DIR_DEBUG) --parallel $(shell $(nproc))
