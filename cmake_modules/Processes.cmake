@@ -19,4 +19,4 @@ ADD_CUSTOM_TARGET (
   convert_to_assembly
   COMMAND g++ -S
   COMMENT "Convert ${DESKTOP_CLIENT_APP_NAME} to assembly"
-  ${CMAKE_SOURCE_DIR}/main.cpp)
+  DEPENDS ${CMAKE_SOURCE_DIR}/main.cpp)
