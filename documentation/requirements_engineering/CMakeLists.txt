@@ -1,21 +1,17 @@
 INCLUDE (CreateLatexDocument)
 
-SET (requirements_document "requirements_document")
-SET (REQUIREMENTS_DOCUMENT_MAIN_TEX ${requirements_document}.tex)
-# SET (REQUIREMENTS_DOCUMENT_SRCS "$")
-SET (REQUIREMENTS_DOCUMENTS_RESOURCES_FILES
-     ${CMAKE_CURRENT_SOURCE_DIR}/../resources/project_logo.png)
-SET (REQUIREMENTS_DOCUMENTS_BIBLIOGRAPHY
-     ${CMAKE_CURRENT_SOURCE_DIR}/library.bib)
+SET (REQ_DOC_NAME "requirements_document")
+SET (REQ_DOC_TEXFILE ${REQ_DOC_NAME}.tex)
 
-CREATELATEXDOCUMENT (
-  "${requirements_document}" "${REQUIREMENTS_DOCUMENT_MAIN_TEX}"
-  "${REQUIREMENTS_DOCUMENTS_RESOURCES_FILES}"
-  "${REQUIREMENTS_DOCUMENTS_BIBLIOGRAPHY}")
+SET (REQ_DOC_RES_FILES
+     ${CMAKE_CURRENT_SOURCE_DIR}/../resources/project_logo.png)
+SET (REQ_DOC_BIB ${CMAKE_CURRENT_SOURCE_DIR}/library.bib)
+
+CREATELATEXDOCUMENT ("${REQ_DOC_NAME}" "${REQ_DOC_TEXFILE}"
+                     "${REQ_DOC_RES_FILES}" "${REQ_DOC_BIB}")
 
 IF (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
   INSTALL (
-    FILES
-      "${CMAKE_CURRENT_BINARY_DIR}/requirements_document/requirements_document.pdf"
+    FILES "${CMAKE_CURRENT_BINARY_DIR}/${REQ_DOC_NAME}/${REQ_DOC_NAME}.pdf"
     DESTINATION "${CMAKE_INSTALL_DOCDIR}/")
 ENDIF ()

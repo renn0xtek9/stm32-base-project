@@ -58,18 +58,17 @@ FUNCTION (add_library_unit_test)
                                                    LABELS unit_tests)
 
   ADD_CUSTOM_COMMAND (
-    COMMENT Analyze ${LIBNAME}_test with valgrind
+    OUTPUT valgrind-${LIBNAME}-out.txt
     COMMAND
       valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
       --verbose --log-file=valgrind-${LIBNAME}-out.txt
       $<TARGET_FILE:${LIBNAME}_test>
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    OUTPUT valgrind-${LIBNAME}-out.txt)
+    COMMENT "Analyze ${LIBNAME}_test with valgrind")
 
   ADD_CUSTOM_TARGET (
     valgrind-leak-check-${LIBNAME}
-    COMMENT Target:
-    valgrind-leak-check-${LIBNAME}
+    COMMENT "Target: valgrind-leak-check-${LIBNAME}"
     DEPENDS valgrind-${LIBNAME}-out.txt)
 
   ADD_TEST (
