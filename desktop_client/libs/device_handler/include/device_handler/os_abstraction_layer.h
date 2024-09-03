@@ -18,21 +18,21 @@ class OsAbstractionLayer : public OsAbstractionLayerInterface {
    * \param device_file_path the path device file to check
    * \return true if the device file exists, false otherwise
    */
-  virtual bool CheckDeviceFileExists(const std::string& device_file_path) const final;
+  bool CheckDeviceFileExists(const std::string& device_file_path) const final;
 
   /*! \fn int OpenDeviceFile
    *\brief This Open a device file
    *\param device_file_path the path device file to check
    *\return file_descriptor_id. -1 if the file could not be opened
    */
-  virtual int OpenDeviceFile(const std::string& device_file_path) const final;
+  int OpenDeviceFile(const std::string& device_file_path) const final;
 
   /*! \fn int CloseDeviceFile
    *\brief This CloseDeviceFile a device file
    *\param file_descriptor the file descriptor to close
    *\return 0 if the file was closed successfully, -1 otherwise
    */
-  virtual int CloseDeviceFile(int file_descriptor) const final;
+  int CloseDeviceFile(int file_descriptor) const final;
 };
 
 }  // namespace OsAbstractionLayer
