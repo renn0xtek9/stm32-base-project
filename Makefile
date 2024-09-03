@@ -22,6 +22,7 @@ documentation: configure_debug
 	cd $(BUILD_DIR_DEBUG) && make requirements_document
 	cd $(BUILD_DIR_DEBUG) && make code_documentation
 	cd $(BUILD_DIR_DEBUG) && make software_build_process_documentation
+	cd $(BUILD_DIR_DEBUG) && make package
 
 build_debug: configure_debug
 	cmake --build $(BUILD_DIR_DEBUG) --parallel $(shell $(nproc))
@@ -46,10 +47,7 @@ validate: quality test performance
 packaging: validate
 	cd $(BUILD_DIR_RELEASE) && make package
 
-documentation_artifacts: documentation
-	cd $(BUILD_DIR_DEBUG) && make package
-
-all: packaging documentation_artifacts
+all: packaging documentation
 	mkdir -p output
 	mv $(BUILD_DIR_RELEASE)/*.deb output/
 	mv $(BUILD_DIR_DEBUG)/*.deb output/

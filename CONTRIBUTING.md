@@ -1,5 +1,47 @@
 # CONTRIBUTING
 
+# Folder structure
+
+```bash
+.
+├── CONTRIBUTING.md # Main documentation for Developers
+├── README.md # Short project description
+├── Makefile # Main makefile. Orchestrate the various build (using CMake)
+├── .devcontainer
+│   ├── ... # Docker file and scripts for the development container
+├── .github
+│   ├── ... # GitHub Continuous Integration files.
+├── CMakeLists.txt
+├── cmake_modules
+│   ├── ... # all cmake modules needed in the CMakeLists
+├── conanfile.txt
+├── conan_profiles
+│   └── ... # Conan build profiles.
+├── desktop_client # Client (x86) application
+│   ├── application
+│   │   ├── .. # Main files
+│   ├── CMakeLists.txt
+│   ├── libs
+│   │   ├── ... # Libraries
+│   └── system_interfaces
+│       ├── ... # System interfaces (describe data exchange between subsystems)
+├── documentation
+│   ├── development_process
+│   │   ├── ... # Documentation of development process
+│   │   └── software_build_process
+│   │       ├── ... # Documentation of build process itself
+│   ├── doxygen
+│   │   ├── ... # code documentation
+│   ├── requirements_engineering
+│   │   ├── ... # Latex document for requirements engineering
+│   └── resources
+│       ├── ... # other documentation resources
+├── License.txt
+├── scripts
+│   └── ... # additional script for developers
+```
+
+
 ## How-to
 ### Setup
 - Install dependencies:
@@ -11,6 +53,12 @@ If you want to defvelop natively on an Ubuntu 22 distribution, you can run
 ```
 
 ### Develop
+- Clean the repository:
+
+```bash
+make clean
+```
+
 - Format all files of the repository using relevant `pre-commit` hook
 ```bash
 make format
@@ -25,17 +73,25 @@ make configure
 ```bash
 make test
 ```
+
+- Run all code quality checks
+```bash
+make quality
+```
+
+- Run all code performance checks
+```bash
+make validate
+```
+
 ### Generate artifacts
 
-- Generate the project documentation
+- Generate a debian archive that contains all the project documentation.
 ```bash
 make documentation
 ```
 
-- Create a debian package of the project
+- Create a debian package that contains the release build binary.
 ```bash
 make packaging
 ```
-
-## Project documentation
--
