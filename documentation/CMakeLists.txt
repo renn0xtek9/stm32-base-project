@@ -16,4 +16,4 @@ ADD_CUSTOM_TARGET (
   SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/code_documentation.doxygen.in
   DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/code_documentation/html/index.html)
 
-ADD_SUBDIRECTORY(development_process)
+ADD_SUBDIRECTORY (development_process)
