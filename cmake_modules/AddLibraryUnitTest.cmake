@@ -32,7 +32,7 @@ FUNCTION (add_library_unit_test)
     -Werror
     -Wall
     -Wextra
-    # -Wpedantic
+    -Wpedantic
     -Wshadow
     -Wconversion
     -Wformat=2
