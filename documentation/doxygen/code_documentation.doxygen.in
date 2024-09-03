@@ -3,7 +3,7 @@
 # Set the project name
 PROJECT_NAME = STM32 Hello World
 
-PROJECT_LOGO = @CMAKE_CURRENT_SOURCE_DIR@/resources/project_logo.png
+PROJECT_LOGO = @CMAKE_SOURCE_DIR@/documentation/resources/project_logo.png
 
 # Set the project version
 PROJECT_VERSION = @PROJECT_VERSION@

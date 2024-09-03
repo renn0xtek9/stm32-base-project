@@ -1,3 +1,3 @@
-# STM32 - Helloworld project
+# STM32 - Base project
 
-Just a hello world project with STM32 and communication over the COM over USB port.
+Template repository for en embbedded project with STM32 and communication over the serial port with a PC ("serial over usb").
