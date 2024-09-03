@@ -48,9 +48,5 @@ packaging: validate
 	cd $(BUILD_DIR_RELEASE) && make package
 
 all: packaging documentation
-	mkdir -p output
-	mv $(BUILD_DIR_RELEASE)/*.deb output/
-	mv $(BUILD_DIR_DEBUG)/*.deb output/
-
 
 .PHONY: all clean test configure validate
