@@ -1,13 +1,14 @@
 INCLUDE (Colors)
-# CreateLatexDocument - Create a latex document
+INCLUDE (ConvertPlantumlDiagrams)
+# CREATE_LATEX_DOCUMENT - Create a latex document
 #
 # This function supposes that the executable pdflatex, biber and makeindex are
 # in the PATH
 #
-# CREATELATEXDOCUMENT( [PDFNAME TEXSRCS RESOURCEFILES BIBFILE] )
+# CREATE_LATEX_DOCUMENT( [PDFNAME TEXSRCS RESOURCEFILES BIBFILE] )
 #
 # This will run pdflatex several time to re-index the document as needed
-MACRO (CreateLatexDocument docname_ texsrc_ resources_ bibfile_)
+MACRO (CREATE_LATEX_DOCUMENT docname_ texsrc_ resources_ bibfile_)
   FIND_PROGRAM (BIBER biber)
   FIND_PROGRAM (PDFLATEX pdflatex)
   FIND_PROGRAM (MAKEINDEX makeindex)
@@ -23,6 +24,8 @@ MACRO (CreateLatexDocument docname_ texsrc_ resources_ bibfile_)
   ENDIF ()
   SET (OUTPUT_FOLDER "${CMAKE_CURRENT_BINARY_DIR}/${docname_}/")
   FILE (MAKE_DIRECTORY ${OUTPUT_FOLDER})
+
+  CONVERT_PLANTUML_TO_PNG ("${resources_}")
 
   ADD_CUSTOM_TARGET (
     ${docname_}

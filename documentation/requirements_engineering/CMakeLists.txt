@@ -3,12 +3,16 @@ INCLUDE (CreateLatexDocument)
 SET (REQ_DOC_NAME "requirements_document")
 SET (REQ_DOC_TEXFILE ${REQ_DOC_NAME}.tex)
 
-SET (REQ_DOC_RES_FILES
-     ${CMAKE_CURRENT_SOURCE_DIR}/../resources/project_logo.png)
+FILE (GLOB_RECURSE REQ_DIAGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/diagrams/*.plantuml)
+FILE (GLOB_RECURSE REQ_TEX_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.tex)
+
+SET (REQ_DOC_RES_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../resources/project_logo.png
+                       ${REQ_DIAGRAMS} ${REQ_TEX_FILES})
+
 SET (REQ_DOC_BIB ${CMAKE_CURRENT_SOURCE_DIR}/library.bib)
 
-CREATELATEXDOCUMENT ("${REQ_DOC_NAME}" "${REQ_DOC_TEXFILE}"
-                     "${REQ_DOC_RES_FILES}" "${REQ_DOC_BIB}")
+CREATE_LATEX_DOCUMENT ("${REQ_DOC_NAME}" "${REQ_DOC_TEXFILE}"
+                       "${REQ_DOC_RES_FILES}" "${REQ_DOC_BIB}")
 
 IF (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
   INSTALL (
