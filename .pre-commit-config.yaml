@@ -13,9 +13,10 @@ repos:
     hooks:
     - id: clang-format
       args: [-i]
-    # - id: clang-tidy
     # - id: cppcheck
-    # - id: cpplint
+      # args: [--project=.cppcheck]
+    # - id: clang-tidy
+    - id: cpplint
     # - id: include-what-you-use
   # - repo: https://github.com/pre-commit/mirrors-clang-format
   #   rev: v14.0.6
