@@ -16,11 +16,13 @@ configure: configure_debug configure_release
 
 clean:
 	rm -rf build*
+	rm -rf output/
 
 documentation: configure_debug
 	cd $(BUILD_DIR_DEBUG) && make requirements_document
 	cd $(BUILD_DIR_DEBUG) && make code_documentation
 	cd $(BUILD_DIR_DEBUG) && make software_build_process_documentation
+	cd $(BUILD_DIR_DEBUG) && make package
 
 build_debug: configure_debug
 	cmake --build $(BUILD_DIR_DEBUG) --parallel $(shell $(nproc))
@@ -33,6 +35,7 @@ test: build_release
 
 test_debug: build_debug
 	ctest --test-dir $(BUILD_DIR_DEBUG) -C Debug -L "unit_tests" --output-on-failure
+
 quality: test_debug
 	ctest --test-dir $(BUILD_DIR_DEBUG) -C Debug -L "quality" --output-on-failure
 
@@ -44,7 +47,10 @@ validate: quality test performance
 packaging: validate
 	cd $(BUILD_DIR_RELEASE) && make package
 
-all: packaging
+all: packaging documentation
+	mkdir -p output
+	mv $(BUILD_DIR_RELEASE)/*.deb output/
+	mv $(BUILD_DIR_DEBUG)/*.deb output/
 
 
 .PHONY: all clean test configure validate
